@@ -11,7 +11,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var jwtKey = []byte("2RBF/4lD1wBMWxiCWjV4gB7aLB4Rg41Rv4S1+w6iixk=")
+var JwtKey = []byte("2RBF/4lD1wBMWxiCWjV4gB7aLB4Rg41Rv4S1+w6iixk=")
 
 type Credentials struct {
 	Username string `json:"username"`
@@ -77,7 +77,7 @@ func Login(c *gin.Context) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
-	tokenString, err := token.SignedString(jwtKey)
+	tokenString, err := token.SignedString(JwtKey)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error generation token"})
 		return
@@ -92,7 +92,7 @@ func Authenticate(c *gin.Context) {
 	claims := &Claims{}
 
 	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-		return jwtKey, nil
+		return JwtKey, nil
 	})
 
 	if err != nil || !token.Valid {
