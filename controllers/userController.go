@@ -85,3 +85,20 @@ func Login(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"token": tokenString})
 }
+
+// Authentication-protected routes
+func Authenticate(c *gin.Context) {
+	tokenString := c.GetHeader("Authorization")
+	claims := &Claims{}
+
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+		return jwtKey, nil
+	})
+
+	if err != nil || !token.Valid {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Authenticated", "username": claims.Username})
+}
