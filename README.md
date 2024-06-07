@@ -1,4 +1,4 @@
-# User Management API
+# Microservice User
 
 This is a RESTful API for user management, including authentication and authorization. The API is built with Go, uses PostgreSQL as the database, and JSON Web Tokens (JWT) for secure authentication.
 
@@ -21,7 +21,7 @@ This is a RESTful API for user management, including authentication and authoriz
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/yourusername/user-management-api.git
+git clone https://github.com/yourusername/microservice-user.git
 cd user-management-api
 ```
 
